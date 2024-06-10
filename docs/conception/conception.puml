@@ -1,0 +1,143 @@
+@startuml conception
+
+
+package user {
+
+    class User {
+        - String username 
+        - String password 
+        + void connecter()
+        + void inscrire()
+    }
+
+    class Profil {
+        - String nom 
+        - String prenom 
+        - String email 
+        - String motDePasse
+        - String nomDeTelephone
+        + void afficherProfil()
+        + void modifierProfil()
+
+    }
+
+
+    class DonneSante {
+        - String id 
+        - Date date 
+        - float frequenceCardiatique
+        - float tensionArterielle
+        - float niveauGlucose 
+        + void afficher()
+        + void collecter() 
+    }
+
+
+    User -- DonneSante
+
+
+}
+
+
+
+
+
+
+package pageDePresentation {
+    class Header {
+        - String title 
+        - Image logo 
+        
+
+    }
+
+    class Navigation {
+        - Button explore
+        - Button login 
+        - Button signUp
+    }
+
+    class Section {
+        - Image imageSection
+        - String descriptionGras 
+        - String description
+        - Button tryIt 
+    }
+
+    Header "1" *-- "1" Navigation 
+}
+
+
+package NotificationUser {
+
+    class Notification {
+        - String id 
+        - String type 
+        - String message 
+        - Date dateNotif
+        + void envoyer()
+        + void afficher()
+    }
+
+    class Alerte {
+        - String id 
+        - String type 
+        - float seuil 
+        + void configurer()
+        + void envoyer()
+    }
+
+}
+
+
+package ConnexionAvceBluettoth {
+
+    class BluetoothManager  {
+        - Array<Device> devices
+        - Device connectedDevice
+        +  void scanForDevices()
+        + void connectToDevice(device: Device)
+        + void disconnectDevice(()
+    }
+
+    class Device {
+        - String id 
+        - String name 
+        - String rssi 
+        + void getServices()
+    }
+
+    class Connection {
+        - Device device
+        - Boolean status
+        + void readCharacteristic(service: BluetoothService, characteristic: string)
+        + void writeCharacteristic(service: BluetoothService, characteristic: string, value: any)
+
+    }
+
+    class BluetoothService {
+        - String uuid
+        - Array<String> characteristics
+        + String getCharacteristic(characteristic: string)
+    }
+
+    BluetoothManager "1..*" -- Device
+    Connection  -- Device
+    BluetoothService -- Connection
+
+}
+
+
+
+
+
+
+
+User "1" *-- "1" Profil
+DonneSante -- BluetoothManager
+User -- Notification
+Alerte -- Notification
+
+
+
+@enduml
