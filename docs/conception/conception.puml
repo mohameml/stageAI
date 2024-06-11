@@ -15,7 +15,7 @@ package user {
         - String prenom 
         - String email 
         - String motDePasse
-        - String nomDeTelephone
+        - String numeroDeTelephone
         + void afficherProfil()
         + void modifierProfil()
 
@@ -40,32 +40,34 @@ package user {
 
 
 
+interface Observateur {
+    + miseAjour()
+}
 
 
-
-package pageDePresentation {
-    class Header {
-        - String title 
-        - Image logo 
+' package pageDePresentation {
+'     class Header {
+'         - String title 
+'         - Image logo 
         
 
-    }
+'     }
 
-    class Navigation {
-        - Button explore
-        - Button login 
-        - Button signUp
-    }
+'     class Navigation {
+'         - Button explore
+'         - Button login 
+'         - Button signUp
+'     }
 
-    class Section {
-        - Image imageSection
-        - String descriptionGras 
-        - String description
-        - Button tryIt 
-    }
+'     class Section {
+'         - Image imageSection
+'         - String descriptionGras 
+'         - String description
+'         - Button tryIt 
+'     }
 
-    Header "1" *-- "1" Navigation 
-}
+'     Header "1" *-- "1" Navigation 
+' }
 
 
 package NotificationUser {
