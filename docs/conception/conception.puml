@@ -15,35 +15,54 @@ package user {
         - String prenom 
         - String email 
         - String motDePasse
-        - String numeroDeTelephone
         + void afficherProfil()
         + void modifierProfil()
 
     }
 
 
-    class DonneSante {
-        - String id 
-        - Date date 
-        - float frequenceCardiatique
-        - float tensionArterielle
-        - float niveauGlucose 
-        + void afficher()
-        + void collecter() 
+    ' class DonneSante {
+    '     - String id 
+    '     - Date date 
+    '     - float frequenceCardiatique
+    '     - float seuilFrequenceCardiatique
+    '     - float tensionArterielle
+    '     - float seuilTensionArterielle
+    '     - float niveauGlucose 
+    '     - float seuiNiveau
+    '     + void afficher()
+    '     + void collecter() 
+    ' }
+
+
+
+
+
+}
+
+package DonnesSante {
+
+    class Sante {
+        - String nom 
+        - float seuil 
+
     }
 
+    class MesureSante {
+        - String id 
+        - Date dateDeMesure 
+        - float mesure
+        + collecter()
+        + envoyer()
+        + afficher()
+        
+    }
 
-    User -- DonneSante
-
+    Sante "1..1" *-- "1..*" MesureSante
 
 }
 
-
-
-interface Observateur {
-    + miseAjour()
-}
-
+MesureSante -- User
 
 ' package pageDePresentation {
 '     class Header {
@@ -72,24 +91,36 @@ interface Observateur {
 
 package NotificationUser {
 
-    class Notification {
+
+    abstract class AbstractNotif {
+
         - String id 
         - String type 
         - String message 
+    }
+
+    class Notification {
         - Date dateNotif
         + void envoyer()
         + void afficher()
     }
 
     class Alerte {
-        - String id 
-        - String type 
-        - float seuil 
+        
+        - float seuilAlerte 
         + void configurer()
         + void envoyer()
     }
 
+    AbstractNotif <|-- Alerte
+    AbstractNotif <|-- Notification
+
+
+
 }
+
+
+
 
 
 package ConnexionAvceBluettoth {
@@ -137,9 +168,11 @@ package ConnexionAvceBluettoth {
 
 
 User "1" *-- "1" Profil
-DonneSante -- BluetoothManager
-User -- Notification
+Sante -- BluetoothManager
 Alerte -- Notification
+
+AbstractNotif -- Sante
+AbstractNotif -- User
 
 
 
