@@ -157,6 +157,7 @@ package ConnexionAvceBluettoth {
     BluetoothManager "1..*" -- Device
     Connection  -- Device
     BluetoothService -- Connection
+     mche6 mek 
 
 }
 
