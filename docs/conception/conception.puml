@@ -135,6 +135,7 @@ package ConnexionAvceBluettoth {
 
 
 
+
 User "1" *-- "1" Profil
 DonneSante -- BluetoothManager
 User -- Notification
