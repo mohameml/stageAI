@@ -21,22 +21,6 @@ package user {
     }
 
 
-    ' class DonneSante {
-    '     - String id 
-    '     - Date date 
-    '     - float frequenceCardiatique
-    '     - float seuilFrequenceCardiatique
-    '     - float tensionArterielle
-    '     - float seuilTensionArterielle
-    '     - float niveauGlucose 
-    '     - float seuiNiveau
-    '     + void afficher()
-    '     + void collecter() 
-    ' }
-
-
-
-
 
 }
 
@@ -55,38 +39,14 @@ package DonnesSante {
         + collecter()
         + envoyer()
         + afficher()
-        
+
     }
 
     Sante "1..1" *-- "1..*" MesureSante
 
 }
 
-MesureSante -- User
 
-' package pageDePresentation {
-'     class Header {
-'         - String title 
-'         - Image logo 
-        
-
-'     }
-
-'     class Navigation {
-'         - Button explore
-'         - Button login 
-'         - Button signUp
-'     }
-
-'     class Section {
-'         - Image imageSection
-'         - String descriptionGras 
-'         - String description
-'         - Button tryIt 
-'     }
-
-'     Header "1" *-- "1" Navigation 
-' }
 
 
 package NotificationUser {
@@ -106,7 +66,7 @@ package NotificationUser {
     }
 
     class Alerte {
-        
+
         - float seuilAlerte 
         + void configurer()
         + void envoyer()
@@ -143,21 +103,15 @@ package ConnexionAvceBluettoth {
     class Connection {
         - Device device
         - Boolean status
-        + void readCharacteristic(service: BluetoothService, characteristic: string)
-        + void writeCharacteristic(service: BluetoothService, characteristic: string, value: any)
+        + void readCharacteristic()
 
     }
 
-    class BluetoothService {
-        - String uuid
-        - Array<String> characteristics
-        + String getCharacteristic(characteristic: string)
-    }
 
-    BluetoothManager "1..*" -- Device
+
+    ' BluetoothManager "1..*" -- Device
     Connection  -- Device
-    BluetoothService -- Connection
-     
+    BluetoothManager -- Connection
 
 }
 
@@ -166,15 +120,14 @@ package ConnexionAvceBluettoth {
 
 
 
-
-
 User "1" *-- "1" Profil
-Sante -- BluetoothManager
+MesureSante -- BluetoothManager
 Alerte -- Notification
 
 AbstractNotif -- Sante
 AbstractNotif -- User
 
+MesureSante -- User
 
 
 @enduml
