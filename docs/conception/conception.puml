@@ -1,0 +1,9 @@
+@startuml conception
+
+class User {
+    - String username 
+    - String password 
+    + void connecter()
+}
+
+@enduml
