@@ -25,15 +25,6 @@ const firebaseConfig = {
     appId: APP_ID,
 };
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyCEEz_pW0IX4uNBLpufQRdaQ88REOcN1vM",
-//     authDomain: "auth-firebase-16579.firebaseapp.com",
-//     projectId: "auth-firebase-16579",
-//     storageBucket: "auth-firebase-16579.appspot.com",
-//     messagingSenderId: "851031073689",
-//     appId: "1:851031073689:web:e50818ccc9dc31e8466908",
-// };
-
 // Initialize Firebase
 let app;
 
