@@ -2,9 +2,13 @@ import LandigPage from "./screens/LandingPage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
-import Home from "./screens/Home";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SingUp from "./screens/SingUp";
+import HomeTab from "./screens/HomeTab";
+import Profile from "./screens/Profile";
+import Bluetooth from "./screens/Bluetooth";
+import Visualisation from "./screens/Visualisation";
+import Notifications from "./screens/Notifications";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,23 +16,31 @@ export default function App() {
     return (
         <SafeAreaProvider>
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="Landing" component={LandigPage} />
+                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="SingUp" component={SingUp} />
+                    <Stack.Screen name="HomeTab" component={HomeTab} />
                     <Stack.Screen
-                        name="Landing"
-                        component={LandigPage}
-                        options={{ headerShown: false }}
+                        name="Profil"
+                        component={Profile}
+                        options={{ headerShown: true }}
                     />
                     <Stack.Screen
-                        name="Login"
-                        component={Login}
-                        options={{ headerShown: false }}
+                        name="Bluetooth"
+                        component={Bluetooth}
+                        options={{ headerShown: true }}
                     />
                     <Stack.Screen
-                        name="SingUp"
-                        component={SingUp}
-                        options={{ headerShown: false }}
+                        name="Notifications"
+                        component={Notifications}
+                        options={{ headerShown: true }}
                     />
-                    <Stack.Screen name="Home" component={Home} />
+                    <Stack.Screen
+                        name="Visualisation"
+                        component={Visualisation}
+                        options={{ headerShown: true }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>
