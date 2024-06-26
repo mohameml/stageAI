@@ -35,7 +35,9 @@ const InputPassword = ({ password, setPassword }) => {
 export default InputPassword;
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        // width: "100%",
+    },
     input: {
         backgroundColor: "white",
         color: "black",

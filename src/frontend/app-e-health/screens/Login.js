@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log("Connexion avce : ", user.email);
-                navigation.replace("Home");
+                navigation.replace("HomeTab");
             })
             .catch((error) => {
                 alert(error.message);
