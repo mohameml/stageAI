@@ -3,11 +3,10 @@ import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 
 const InputPassword = ({ password, setPassword }) => {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
     const [nameIcon, setNameIcon] = useState("eye-with-line");
 
     function handelIconPress() {
-        console.log("Click Icon");
         setShow(!show);
         if (!show) {
             setNameIcon("eye-with-line");

@@ -8,7 +8,6 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 
 let idUser = "";
-
 const Profile = () => {
     const navigation = useNavigation();
 
@@ -24,6 +23,7 @@ const Profile = () => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: "#2966e3",
+
                 color: "white",
             },
             headerTintColor: "white",
@@ -147,6 +147,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingTop: 30,
+        // flex: 1,
+        // backgroundColor: "white",
     },
     modifTxt: {
         fontSize: 15,

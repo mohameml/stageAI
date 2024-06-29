@@ -4,6 +4,8 @@ import { auth } from "../config/firebase";
 import FoncView from "../components/foncView/foncView";
 import { Feather } from "@expo/vector-icons";
 import dataFonc from "./../data/dataFonc";
+import Slider from "../components/Slider/Slider";
+import dataSlider from "../data/dataSlider";
 
 const Home = ({ navigation }) => {
     const handelLogOut = () => {
@@ -15,29 +17,39 @@ const Home = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.conatiner}>
-            {/* <Text style={styles.txtInfos}>
+        <View style={styles.conatinerView}>
+            <View style={styles.titleDeviace}>
+                <Feather name="bluetooth" size={24} color="#74ad9c" />
+                <Text style={styles.tilte}>Appareils prise en charge</Text>
+            </View>
+            <Slider data={dataSlider} />
+            <View style={styles.conatiner}>
+                {/* <Text style={styles.txtInfos}>
                 Email :{auth.currentUser?.email}
             </Text>
             <TouchableOpacity style={styles.btn} onPress={handelLogOut}>
                 <Text style={styles.txt}>Log Out</Text>
             </TouchableOpacity> */}
-            <View style={styles.containerTilte}>
-                <Feather name="file-plus" size={24} color={"#74ad9c"} />
-                <Text style={styles.tilte}>Journal de santé</Text>
-            </View>
+                <View style={styles.containerTilte}>
+                    <Feather name="file-plus" size={24} color={"#74ad9c"} />
+                    <Text style={styles.tilte}>
+                        fonctionnalités de l'Application
+                    </Text>
+                </View>
 
-            <View style={styles.viewFonc}>
-                {dataFonc.map((elem) => {
-                    return (
-                        <FoncView
-                            key={elem.title}
-                            title={elem.title}
-                            image={elem.url}
-                            desc={elem.desc}
-                        />
-                    );
-                })}
+                <View style={styles.viewFonc}>
+                    {dataFonc.map((elem) => {
+                        return (
+                            <FoncView
+                                key={elem.title}
+                                title={elem.title}
+                                image={elem.url}
+                                desc={elem.desc}
+                                color={elem.col}
+                            />
+                        );
+                    })}
+                </View>
             </View>
         </View>
     );
@@ -46,15 +58,27 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
+    conatinerView: {
+        width: "100%",
+        flex: 1,
+        backgroundColor: "white",
+    },
     conatiner: {
         width: "100%",
         flex: 1,
         padding: 10,
         backgroundColor: "white",
     },
+    titleDeviace: {
+        flexDirection: "row",
+        padding: 5,
+        backgroundColor: "white",
+        marginBottom: 10,
+    },
     tilte: {
         fontSize: 20,
         fontWeight: "500",
+        marginLeft: 10,
     },
     containerTilte: {
         flexDirection: "row",

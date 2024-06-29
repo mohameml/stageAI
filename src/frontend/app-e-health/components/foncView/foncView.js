@@ -2,7 +2,7 @@ import { StyleSheet, Text, Image, Pressable } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const FoncView = ({ title, image, desc }) => {
+const FoncView = ({ title, image, desc, color }) => {
     function handelPress() {
         console.log("Press ", title);
         navigation.navigate(title);
@@ -11,7 +11,10 @@ const FoncView = ({ title, image, desc }) => {
     const navigation = useNavigation();
 
     return (
-        <Pressable style={styles.container} onPress={handelPress}>
+        <Pressable
+            style={[styles.container, { backgroundColor: color }]}
+            onPress={handelPress}
+        >
             <Text style={styles.title}>{title}</Text>
             <Image source={image} style={styles.img} />
             <Text style={styles.unite}>{desc}</Text>
@@ -26,6 +29,8 @@ const styles = StyleSheet.create({
         width: "45%",
         borderRadius: 15,
         backgroundColor: "#deeefe",
+        // backgroundColor: "#fef2f2",
+
         justifyContent: "center",
         alignItems: "center",
         padding: 10,
