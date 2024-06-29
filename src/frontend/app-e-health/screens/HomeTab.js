@@ -3,7 +3,8 @@ import Home from "./Home";
 import Profile from "./Profile";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-
+import HomeHeadr from "../components/HomeHeader/HomeHeadr";
+import { FontAwesome } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 const HomeTab = () => {
@@ -21,7 +22,7 @@ const HomeTab = () => {
 
 const screenOptions = {
     headerRight: () => {
-        return <AntDesign name="logout" size={24} color="black" />;
+        return <HomeHeadr />;
     },
 };
 
@@ -33,7 +34,7 @@ const homeOptions = {
 
 const profileOptions = {
     tabBarIcon: ({ color, size }) => {
-        return <AntDesign name="profile" size={size} color={color} />;
+        return <FontAwesome name="user" size={size} color={color} />;
     },
 };
 

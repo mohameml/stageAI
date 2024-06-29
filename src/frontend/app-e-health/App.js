@@ -9,6 +9,7 @@ import Profile from "./screens/Profile";
 import Bluetooth from "./screens/Bluetooth";
 import Visualisation from "./screens/Visualisation";
 import Notifications from "./screens/Notifications";
+import Historique from "./screens/Historique";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,11 @@ export default function App() {
                     <Stack.Screen
                         name="Visualisation"
                         component={Visualisation}
+                        options={{ headerShown: true }}
+                    />
+                    <Stack.Screen
+                        name="Historique"
+                        component={Historique}
                         options={{ headerShown: true }}
                     />
                 </Stack.Navigator>
