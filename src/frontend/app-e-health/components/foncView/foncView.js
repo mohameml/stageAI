@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Image, Pressable } from "react-native";
+import { StyleSheet, Text, Image, Pressable, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,9 +15,11 @@ const FoncView = ({ title, image, desc, color }) => {
             style={[styles.container, { backgroundColor: color }]}
             onPress={handelPress}
         >
-            <Text style={styles.title}>{title}</Text>
+            <View style={styles.content}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.desc}>{desc}</Text>
+            </View>
             <Image source={image} style={styles.img} />
-            <Text style={styles.unite}>{desc}</Text>
         </Pressable>
     );
 };
@@ -27,30 +29,31 @@ export default FoncView;
 const styles = StyleSheet.create({
     container: {
         width: "45%",
+        height: 190,
         borderRadius: 15,
         backgroundColor: "#deeefe",
-        // backgroundColor: "#fef2f2",
-
         justifyContent: "center",
         alignItems: "center",
-        padding: 10,
+        padding: 5,
+    },
+    content: {
+        width: "100%",
+        felx: 0.4,
+        justifyContent: "center",
+        alignItems: "center",
     },
     img: {
         width: "100%",
-        height: "15%",
+        flex: 0.6,
         resizeMode: "contain",
         marginVertical: 10,
     },
     title: {
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: "500",
+        marginBottom: 10,
     },
-    mesure: {
-        fontSize: 25,
-        color: "#43659f",
-        fontWeight: "bold",
-    },
-    unite: {
+    desc: {
         fontSize: 12,
         color: "#7e899b",
         textAlign: "center",
