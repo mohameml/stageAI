@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import { auth } from "../config/firebase";
 import FoncView from "../components/foncView/foncView";
@@ -38,7 +38,10 @@ const Home = ({ navigation }) => {
                     </Text>
                 </View>
 
-                <View style={styles.viewFonc}>
+                <ScrollView
+                    contentContainerStyle={styles.viewFonc}
+                    showsVerticalScrollIndicator={false}
+                >
                     {dataFonc.map((elem) => {
                         return (
                             <FoncView
@@ -50,7 +53,7 @@ const Home = ({ navigation }) => {
                             />
                         );
                     })}
-                </View>
+                </ScrollView>
             </View>
         </View>
     );

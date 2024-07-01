@@ -6,6 +6,7 @@ import Button from "../components/Button/Button";
 import { db, auth } from "../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
+import colros from "../constant/colors";
 
 let idUser = "";
 const Profile = () => {
