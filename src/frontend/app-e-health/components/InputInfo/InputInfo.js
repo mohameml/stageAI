@@ -3,13 +3,19 @@ import React from "react";
 import Input from "../Input/Input";
 
 const InputInfo = (props) => {
-    const { label, info, setInfo } = props;
+    const { label, info, setInfo, color } = props;
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 15, fontWeight: "500", padding: 5 }}>
                 {label}
             </Text>
-            <Input title={label} value={info} setValue={setInfo} {...props} />
+            <Input
+                title={label}
+                value={info}
+                setValue={setInfo}
+                color={color}
+                {...props}
+            />
         </View>
     );
 };

@@ -16,6 +16,7 @@ const data = {
 
 const chartConfig = {
     backgroundColor: "#e26a00",
+    // backgroundColor: "#000000",
     backgroundGradientFrom: "#fb8c00",
     backgroundGradientTo: "#ffa726",
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,

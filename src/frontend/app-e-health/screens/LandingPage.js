@@ -16,7 +16,7 @@ function LandigPage({ navigation }) {
             </Text>
             <Pressable
                 style={styles.btn}
-                onPress={() => navigation.replace("Login")}
+                onPress={() => navigation.replace("Boarding")}
             >
                 <Text style={styles.txtBtn}>Commancer</Text>
             </Pressable>

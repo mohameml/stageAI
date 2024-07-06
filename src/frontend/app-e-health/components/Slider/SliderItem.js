@@ -10,9 +10,9 @@ import {
 import React from "react";
 import colors from "../../constant/colors";
 
-const { width } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("screen");
 
-const SliderItem = ({ item }) => {
+const SliderItem = ({ item, full }) => {
     const translateImage = new Animated.Value(20);
 
     Animated.timing(translateImage, {
@@ -22,8 +22,11 @@ const SliderItem = ({ item }) => {
         easing: Easing.bounce,
     }).start();
 
+    const stylesContainer =
+        full === true ? styles.conatainerFull : styles.container;
+
     return (
-        <View style={styles.container}>
+        <View style={stylesContainer}>
             <Animated.Image
                 source={item.image}
                 style={[
@@ -51,6 +54,12 @@ const styles = StyleSheet.create({
     container: {
         width: width,
         height: 250,
+        alignItems: "center",
+        backgroundColor: "white",
+    },
+    conatainerFull: {
+        width: width,
+        height: height,
         alignItems: "center",
         backgroundColor: "white",
     },

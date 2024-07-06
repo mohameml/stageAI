@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
 import Profile from "./Profile";
-import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import HomeHeadr from "../components/HomeHeader/HomeHeadr";
 import { FontAwesome } from "@expo/vector-icons";
+import Notifications from "./Notifications";
 const Tab = createBottomTabNavigator();
 
 const HomeTab = () => {
@@ -15,6 +16,11 @@ const HomeTab = () => {
                 name="Profile"
                 component={Profile}
                 options={profileOptions}
+            />
+            <Tab.Screen
+                name="notification"
+                component={Notifications}
+                options={notificationsOptions}
             />
         </Tab.Navigator>
     );
@@ -35,6 +41,12 @@ const homeOptions = {
 const profileOptions = {
     tabBarIcon: ({ color, size }) => {
         return <FontAwesome name="user" size={size} color={color} />;
+    },
+};
+
+const notificationsOptions = {
+    tabBarIcon: ({ color, size }) => {
+        return <Ionicons name="notifications" size={size} color={color} />;
     },
 };
 

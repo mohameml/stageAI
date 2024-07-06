@@ -6,7 +6,6 @@ import { Feather } from "@expo/vector-icons";
 import dataFonc from "./../data/dataFonc";
 import Slider from "../components/Slider/Slider";
 import dataSlider from "../data/dataSlider";
-import HomeHeadr from "../components/HomeHeader/HomeHeadr";
 
 const Home = ({ navigation }) => {
     const handelLogOut = () => {

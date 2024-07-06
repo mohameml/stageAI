@@ -6,10 +6,8 @@ import colors from "../../constant/colors";
 
 const HomeHeadr = () => {
     const navigation = useNavigation();
-    console.log(navigation);
 
     const handelPress = () => {
-        console.log("HeaderHome go to profile ");
         navigation.navigate("Profil");
     };
 
@@ -17,7 +15,6 @@ const HomeHeadr = () => {
         <Pressable onPress={handelPress}>
             <View style={styles.user}>
                 <FontAwesome name="user" size={24} color={colors.background} />
-                {/* <Text>text</Text> */}
             </View>
         </Pressable>
     );

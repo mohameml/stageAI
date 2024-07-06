@@ -8,8 +8,9 @@ import HomeTab from "./screens/HomeTab";
 import Profile from "./screens/Profile";
 import Bluetooth from "./screens/Bluetooth";
 import Visualisation from "./screens/Visualisation";
-import Notifications from "./screens/Notifications";
 import Historique from "./screens/Historique";
+import Details from "./screens/Details";
+import Boarding from "./screens/Boarding";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Landing" component={LandigPage} />
                     <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Boarding" component={Boarding} />
                     <Stack.Screen name="SingUp" component={SingUp} />
                     <Stack.Screen name="HomeTab" component={HomeTab} />
                     <Stack.Screen
@@ -33,8 +35,8 @@ export default function App() {
                         options={{ headerShown: true }}
                     />
                     <Stack.Screen
-                        name="Notifications"
-                        component={Notifications}
+                        name="Details"
+                        component={Details}
                         options={{ headerShown: true }}
                     />
                     <Stack.Screen
