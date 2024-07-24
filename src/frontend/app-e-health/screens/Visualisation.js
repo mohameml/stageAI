@@ -1,10 +1,41 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Courbe from "../components/chart/Courbe";
 import HealthLineChart from "../components/chart/chartLine";
 import Bar from "../components/chart/Bar";
+import { ActivityIndicator } from "react-native";
+
+import { getHeartRatePerDay } from "../backend/DataSante";
 
 const Visualisation = () => {
+    const [dataUserSante, setDataUserSante] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fecthMesureSante = async () => {
+            try {
+                const mesuresUser = await getHeartRatePerDay();
+                console.log(mesuresUser);
+                console.log(mesuresUser.map((item) => item.date));
+                setDataUserSante(mesuresUser);
+            } catch (e) {
+                console.log("Failed to fetch heart rate data", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fecthMesureSante();
+        // return () =>;
+    }, []);
+
+    if (loading) {
+        return (
+            <View style={styles.wait}>
+                <ActivityIndicator size={"large"} />
+            </View>
+        );
+    }
+
     return (
         <ScrollView
             contentContainerStyle={{ backgroundColor: "white" }}
@@ -12,16 +43,10 @@ const Visualisation = () => {
         >
             {/* chart 1 :  */}
             <Text style={styles.titleChart}>Mesure Cardiatique </Text>
-            <HealthLineChart />
-            {/* chart 2 :  */}
-            <Text style={styles.titleChart}>Mesure Cardiatique</Text>
-            <Courbe />
-            {/* chart 3 :  */}
-            <Text style={styles.titleChart}>Mesure Cardiatique</Text>
-            <Bar />
-            {/* chart 4 :  */}
-            <Text style={styles.titleChart}>Mesure Cardiatique</Text>
-            <HealthLineChart />
+            <HealthLineChart
+                labels={dataUserSante.map((item) => item.date)}
+                data={dataUserSante.map((item) => item.heartRate)}
+            />
         </ScrollView>
     );
 };

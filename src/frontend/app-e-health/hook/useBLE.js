@@ -2,12 +2,20 @@ import { useMemo, useState } from "react";
 import { BleManager, Device } from "react-native-ble-plx";
 
 import { Platform, PermissionsAndroid } from "react-native";
+import base64 from "react-native-base64";
 
 function useBLE() {
     const bleManager = useMemo(() => new BleManager(), []);
 
     const [allDevices, setAllDevices] = useState([]);
     const [connectedDevice, setConnectedDevice] = useState(null);
+    const [heartRate, setHeartRate] = useState(-1);
+
+    const HEART_RATE_UUID = "0000180d-0000-1000-8000-00805f9b34fb";
+    const HEART_RATE_CHARACTERISTIC = "00002a37-0000-1000-8000-00805f9b34fb";
+
+    const service_UUID = "180D";
+    const charac_UUID = "2A38";
 
     const requestBluetoothPermission = async () => {
         if (Platform.OS === "ios") {
@@ -54,13 +62,14 @@ function useBLE() {
     const isDuplicteDevice = (devices, nextDevice) =>
         devices.findIndex((device) => nextDevice.id === device.id) > -1;
 
-    const scanForPeripherals = () =>
+    const scanForPeripherals = () => {
+        console.log("=========== start scanning ================");
         bleManager.startDeviceScan(null, null, (error, device) => {
             if (error) {
                 console.log(error);
             }
             // && device.name?.includes("CorSense")
-            setAllDevices([]);
+            // setAllDevices([]);
             if (device) {
                 setAllDevices((prevState) => {
                     if (!isDuplicteDevice(prevState, device)) {
@@ -70,18 +79,79 @@ function useBLE() {
                 });
             }
         });
+    };
 
     const connectToDevice = async (device) => {
         try {
+            console.log("======= Conncection to devaice ============");
+            // console.log(device);
             const deviceConnection = await bleManager.connectToDevice(
                 device.id
             );
             setConnectedDevice(deviceConnection);
             await deviceConnection.discoverAllServicesAndCharacteristics();
             bleManager.stopDeviceScan();
-            // startStreamingData(deviceConnection);
+            await startStreamingData(deviceConnection);
         } catch (e) {
             console.log("FAILED TO CONNECT , ERROR : ", e);
+        }
+    };
+
+    const onHeartRateUpdate = (error, characteristic) => {
+        if (error) {
+            console.log(error);
+            return -1;
+        } else if (!characteristic?.value) {
+            console.log("No Data was recieved");
+            return -1;
+        }
+
+        const rawData = base64.decode(characteristic.value);
+        console.log("==== read data : ", characteristic.value);
+        let innerHeartRate = -1;
+
+        const firstBitValue = Number(rawData) & 0x01;
+
+        if (firstBitValue === 0) {
+            innerHeartRate = rawData[1].charCodeAt(0);
+        } else {
+            innerHeartRate =
+                Number(rawData[1].charCodeAt(0) << 8) +
+                Number(rawData[2].charCodeAt(2));
+        }
+
+        setHeartRate(innerHeartRate);
+    };
+
+    const startStreamingData = async (device) => {
+        console.log("============ start read info ===============");
+        if (device) {
+            const characteristic = await device.readCharacteristicForService(
+                service_UUID, // Replace with your service UUID
+                charac_UUID
+            );
+            // console.log("value =", characteristic);
+            const value = base64.decode(characteristic.value);
+            console.log("value = ", value);
+            setHeartRate(value);
+
+            if (device.name.includes("corsens")) {
+                device.monitorCharacteristicForService(
+                    HEART_RATE_UUID,
+                    HEART_RATE_CHARACTERISTIC,
+                    onHeartRateUpdate
+                );
+            }
+        } else {
+            console.log("No Device Connected");
+        }
+    };
+
+    const disconnectFromDevice = () => {
+        if (connectedDevice) {
+            bleManager.cancelDeviceConnection(connectedDevice.id);
+            setConnectedDevice(null);
+            setHeartRate(0);
         }
     };
 
@@ -91,6 +161,8 @@ function useBLE() {
         allDevices,
         connectToDevice,
         connectedDevice,
+        heartRate,
+        disconnectFromDevice,
     };
 }
 

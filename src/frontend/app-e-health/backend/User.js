@@ -8,6 +8,7 @@ import {
     doc,
     updateDoc,
 } from "firebase/firestore";
+
 // =========== infos User : ===================
 function getEmail() {
     const mailUser = auth.currentUser?.email;

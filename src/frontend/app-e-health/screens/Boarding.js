@@ -8,7 +8,6 @@ const Boarding = () => {
     return (
         <View>
             <Slider data={dataBoarding} full={true} />
-            {/* <Button title="next" /> */}
         </View>
     );
 };

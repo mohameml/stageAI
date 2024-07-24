@@ -4,7 +4,7 @@ import { LineChart } from "react-native-chart-kit";
 
 const screenWidth = Dimensions.get("window").width;
 
-const data = {
+const dataUser = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
         {
@@ -22,11 +22,20 @@ const chartConfig = {
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
 };
-const HealthLineChart = () => {
+const HealthLineChart = ({ labels, data }) => {
+    const dataGraphe = {
+        labels: labels,
+        datasets: [
+            {
+                data: data,
+            },
+        ],
+        legend: ["Health Data"],
+    };
     return (
         <View style={styles.container}>
             <LineChart
-                data={data}
+                data={dataGraphe}
                 width={screenWidth - 16}
                 height={200}
                 chartConfig={chartConfig}

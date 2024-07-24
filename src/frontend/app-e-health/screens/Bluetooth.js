@@ -17,6 +17,8 @@ export default function Bluetooth() {
         allDevices,
         connectToDevice,
         connectedDevice,
+        heartRate,
+        disconnectFromDevice,
     } = useBLE();
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -45,7 +47,9 @@ export default function Bluetooth() {
                         <Text style={styles.heartRateTitleText}>
                             Your Heart Rate Is:
                         </Text>
-                        <Text style={styles.heartRateText}>-1 bpm</Text>
+                        <Text style={styles.heartRateText}>
+                            {heartRate} bpm
+                        </Text>
                     </>
                 ) : (
                     <Text style={styles.heartRateTitleText}>
@@ -53,10 +57,12 @@ export default function Bluetooth() {
                     </Text>
                 )}
             </View>
-            <TouchableOpacity onPress={openModal} style={styles.ctaButton}>
+            <TouchableOpacity
+                onPress={connectedDevice ? disconnectFromDevice : openModal}
+                style={styles.ctaButton}
+            >
                 <Text style={styles.ctaButtonText}>
-                    {/* {connectedDevice ? "Disconnect" : "Connect"} */}
-                    Connecter
+                    {connectedDevice ? "Disconnecter" : "Connecter"}
                 </Text>
             </TouchableOpacity>
             <DeviceModal
