@@ -11,46 +11,55 @@ import Visualisation from "./screens/Visualisation";
 import Historique from "./screens/Historique";
 import Details from "./screens/Details";
 import Boarding from "./screens/Boarding";
+import { PaperProvider } from "react-native-paper";
+import FilterView from "./components/Filter/FilterView";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     return (
-        <SafeAreaProvider>
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="Landing" component={LandigPage} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Boarding" component={Boarding} />
-                    <Stack.Screen name="SingUp" component={SingUp} />
-                    <Stack.Screen name="HomeTab" component={HomeTab} />
-                    <Stack.Screen
-                        name="Profil"
-                        component={Profile}
-                        options={{ headerShown: true }}
-                    />
-                    <Stack.Screen
-                        name="Bluetooth"
-                        component={Bluetooth}
-                        options={{ headerShown: true }}
-                    />
-                    <Stack.Screen
-                        name="Details"
-                        component={Details}
-                        options={{ headerShown: true }}
-                    />
-                    <Stack.Screen
-                        name="Visualisation"
-                        component={Visualisation}
-                        options={{ headerShown: true }}
-                    />
-                    <Stack.Screen
-                        name="Historique"
-                        component={Historique}
-                        options={{ headerShown: true }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </SafeAreaProvider>
+        <PaperProvider>
+            <SafeAreaProvider>
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="Landing" component={LandigPage} />
+                        <Stack.Screen name="Login" component={Login} />
+                        <Stack.Screen name="Boarding" component={Boarding} />
+                        <Stack.Screen name="SingUp" component={SingUp} />
+                        <Stack.Screen name="HomeTab" component={HomeTab} />
+                        <Stack.Screen
+                            name="Profil"
+                            component={Profile}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Bluetooth"
+                            component={Bluetooth}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Details"
+                            component={Details}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Visualisation"
+                            component={Visualisation}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="Historique"
+                            component={Historique}
+                            options={{ headerShown: true }}
+                        />
+                        <Stack.Screen
+                            name="filter"
+                            component={FilterView}
+                            options={{ headerShown: false }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </SafeAreaProvider>
+        </PaperProvider>
     );
 }

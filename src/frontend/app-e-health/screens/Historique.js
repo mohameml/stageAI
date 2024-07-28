@@ -1,35 +1,104 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import colors from "../constant/colors";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
+import { Button } from "react-native-paper";
+
+import Table from "../components/Table/Table";
+import { getHeartRatePerDay } from "../backend/DataSante";
+import { ActivityIndicator } from "react-native";
+
+import { Dimensions } from "react-native";
+
+import {
+    extractJourMoisAnneeFormatDDMMAAAA,
+    reverseString,
+    extractJourMoisAnneeFormatAAAAMMDD,
+} from "../utils/utils";
 
 const Historique = () => {
     const navigation = useNavigation();
+
+    const [loading, setLoading] = useState(true);
+    const [dataUser, setDataUser] = useState([]);
+
+    const handelFilter = (DateFrom, DateTo) => {
+        const dataFilter = dataUser.filter((item) => {
+            const { jour, mois, annee } = extractJourMoisAnneeFormatDDMMAAAA(
+                item.date
+            );
+            const {
+                jour: jourFrom,
+                mois: moisFrom,
+                annee: anneeFrom,
+            } = extractJourMoisAnneeFormatAAAAMMDD(DateFrom);
+            const {
+                jour: jourTo,
+                mois: moisTo,
+                annee: anneeTo,
+            } = extractJourMoisAnneeFormatAAAAMMDD(DateTo);
+
+            console.log(jour, mois, annee);
+            console.log(jourFrom, moisFrom, anneeFrom);
+        });
+    };
+
+    useEffect(() => {
+        const fecthMesureSante = async () => {
+            let count = 0;
+            try {
+                const mesuresUser = await getHeartRatePerDay();
+
+                setDataUser(
+                    mesuresUser.map((item) => {
+                        count++;
+                        return {
+                            key: count,
+                            heartRate: Number(item.heartRate),
+                            date: item.date.slice(0, 10),
+                        };
+                    })
+                );
+            } catch (e) {
+                console.log("Failed to fetch heart rate data", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fecthMesureSante();
+    }, []);
+
+    if (loading) {
+        return (
+            <View>
+                <ActivityIndicator size={"large"} />
+            </View>
+        );
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.itemView}>
-                <Text style={styles.itemText}>Historique</Text>
-                <TouchableOpacity style={styles.btnView}>
-                    <FontAwesome name="history" size={24} color="white" />
-                    <Text style={styles.btnText}>
-                        rechercher dans l'historique
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.itemView}>
-                <Text style={styles.itemText}>Visualisation</Text>
-                <TouchableOpacity
-                    style={styles.btnView}
-                    onPress={() => navigation.navigate("Visualisation")}
+            <View style={styles.btns}>
+                <Button
+                    mode="outlined"
+                    onPress={() =>
+                        navigation.navigate("Visualisation", { data: dataUser })
+                    }
                 >
-                    <Entypo name="bar-graph" size={24} color="white" />
-                    <Text style={styles.btnText}>
-                        visualisez l'hisotrique de vos mesures de santé
-                    </Text>
-                </TouchableOpacity>
+                    visualiser
+                </Button>
+
+                <Button
+                    mode="outlined"
+                    onPress={() => {
+                        navigation.navigate("filter", {
+                            handelFilter: handelFilter,
+                        });
+                    }}
+                >
+                    filtrer
+                </Button>
             </View>
+            <Table items={dataUser} />
         </View>
     );
 };
@@ -43,28 +112,23 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "white",
     },
-    itemView: {
-        padding: 5,
+
+    btns: {
+        // backgroundColor: "red",
         width: "100%",
-        marginVertical: 10,
-    },
-    itemText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: 5,
-        color: "black",
-    },
-    btnView: {
+        padding: 5,
         flexDirection: "row",
-        backgroundColor: "red",
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: colors.primary,
+        justifyContent: "flex-end",
+        gap: 10,
     },
-    btnText: {
-        marginLeft: 5,
-        color: "white",
-        fontSize: 15,
-        fontWeight: "400",
+    moadlConatiner: {
+        width: "100%",
+        height: Dimensions.get("window"),
+        // backgroundColor: "white",
+    },
+
+    modalContainer: {
+        backgroundColor: "red",
+        width: "100%",
     },
 });

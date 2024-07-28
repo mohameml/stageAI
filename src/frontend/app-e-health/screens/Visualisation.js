@@ -6,35 +6,11 @@ import Bar from "../components/chart/Bar";
 import { ActivityIndicator } from "react-native";
 
 import { getHeartRatePerDay } from "../backend/DataSante";
+import { useRoute } from "@react-navigation/native";
 
 const Visualisation = () => {
-    const [dataUserSante, setDataUserSante] = useState();
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fecthMesureSante = async () => {
-            try {
-                const mesuresUser = await getHeartRatePerDay();
-                console.log(mesuresUser);
-                console.log(mesuresUser.map((item) => item.date));
-                setDataUserSante(mesuresUser);
-            } catch (e) {
-                console.log("Failed to fetch heart rate data", e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fecthMesureSante();
-        // return () =>;
-    }, []);
-
-    if (loading) {
-        return (
-            <View style={styles.wait}>
-                <ActivityIndicator size={"large"} />
-            </View>
-        );
-    }
+    const route = useRoute();
+    const dataUserSante = route.params.data;
 
     return (
         <ScrollView
