@@ -15,9 +15,9 @@ const extractJourMoisAnneeFormatDDMMAAAA = (date) => {
 
 const extractJourMoisAnneeFormatAAAAMMDD = (date) => {
     // YYYY-MM-DD
-    const jour = date.slice(0, 4);
+    const annee = date.slice(0, 4);
     const mois = date.slice(5, 7);
-    const annee = date.slice(9, 10);
+    const jour = date.slice(8, 10);
 
     return {
         jour: jour,
@@ -30,8 +30,20 @@ const reverseString = (str) => {
     return str.split("").reverse().join("");
 };
 
+const isDateBetween = (dateToCheck, startDate, endDate) => {
+    // format string : AAAA-MM-DD
+    // Convertir les dates en objets Date
+    let date = new Date(dateToCheck);
+    let start = new Date(startDate);
+    let end = new Date(endDate);
+
+    // Vérifier si la date est entre les deux dates données
+    return date >= start && date <= end;
+};
+
 export {
     extractJourMoisAnneeFormatDDMMAAAA,
     reverseString,
     extractJourMoisAnneeFormatAAAAMMDD,
+    isDateBetween,
 };

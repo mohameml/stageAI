@@ -10,39 +10,6 @@ const Table = ({ items }) => {
         numberOfItemsPerPageList[0]
     );
 
-    // const [items] = useState([
-    //     {
-    //         key: 1,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    //     {
-    //         key: 2,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    //     {
-    //         key: 3,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    //     {
-    //         key: 4,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    //     {
-    //         key: 5,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    //     {
-    //         key: 6,
-    //         heartRate: 70,
-    //         date: "24-07-2024",
-    //     },
-    // ]);
-
     const from = page * itemsPerPage;
     const to = Math.min((page + 1) * itemsPerPage, items.length);
 
@@ -53,7 +20,7 @@ const Table = ({ items }) => {
                 return idx + 1;
             })
         );
-    }, [itemsPerPage]);
+    }, [itemsPerPage, items]);
 
     return (
         <DataTable>

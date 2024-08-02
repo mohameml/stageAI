@@ -9,6 +9,7 @@ import useBLE from "../hook/useBLE";
 import DeviceModal from "../components/DeviceModal/DeviceModal";
 
 import { useState } from "react";
+// import heartRateAnimeted from "../components/Animation/heartRateAnimeted";
 
 export default function Bluetooth() {
     const {
@@ -43,7 +44,7 @@ export default function Bluetooth() {
             <View style={styles.heartRateTitleWrapper}>
                 {connectedDevice ? (
                     <>
-                        {/* <PulseIndicator /> */}
+                        {/* <heartRateAnimeted /> */}
                         <Text style={styles.heartRateTitleText}>
                             Your Heart Rate Is:
                         </Text>

@@ -59,6 +59,30 @@ const FilterView = () => {
                             selectedDotColor: "orange",
                         },
                     }}
+
+                    // markingType={"period"}
+                    // markedDates={{
+                    //     "2024-08-20": {
+                    //         startingDay: true,
+                    //         color: "green",
+                    //         textColor: "white",
+                    //     },
+                    //     "2024-08-21": {
+                    //         color: "green",
+                    //         textColor: "white",
+                    //     },
+                    //     "2024-08-22": {
+                    //         color: "green",
+                    //         textColor: "white",
+                    //     },
+
+                    //     "2024-08-23": {
+                    //         selected: true,
+                    //         endingDay: true,
+                    //         color: "green",
+                    //         textColor: "white",
+                    //     },
+                    // }}
                 />
             </View>
             <View style={styles.viewbtn}>

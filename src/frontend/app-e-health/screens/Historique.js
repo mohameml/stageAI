@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 
 import Table from "../components/Table/Table";
-import { getHeartRatePerDay } from "../backend/DataSante";
+import { getHeartRatePerDay, addNewMesure } from "../backend/DataSante";
 import { ActivityIndicator } from "react-native";
 
 import { Dimensions } from "react-native";
@@ -13,6 +13,7 @@ import {
     extractJourMoisAnneeFormatDDMMAAAA,
     reverseString,
     extractJourMoisAnneeFormatAAAAMMDD,
+    isDateBetween,
 } from "../utils/utils";
 
 const Historique = () => {
@@ -26,20 +27,12 @@ const Historique = () => {
             const { jour, mois, annee } = extractJourMoisAnneeFormatDDMMAAAA(
                 item.date
             );
-            const {
-                jour: jourFrom,
-                mois: moisFrom,
-                annee: anneeFrom,
-            } = extractJourMoisAnneeFormatAAAAMMDD(DateFrom);
-            const {
-                jour: jourTo,
-                mois: moisTo,
-                annee: anneeTo,
-            } = extractJourMoisAnneeFormatAAAAMMDD(DateTo);
+            const dateToCheck = annee + "-" + mois + "-" + jour;
 
-            console.log(jour, mois, annee);
-            console.log(jourFrom, moisFrom, anneeFrom);
+            return isDateBetween(dateToCheck, DateFrom, DateTo);
         });
+
+        setDataUser(dataFilter);
     };
 
     useEffect(() => {
@@ -48,15 +41,24 @@ const Historique = () => {
             try {
                 const mesuresUser = await getHeartRatePerDay();
 
+                const mesureUserAvceNAN = mesuresUser.map((item) => {
+                    count++;
+                    let heartRate = Number(item.heartRate) ?? 0;
+                    console.log("heartRate =", heartRate, isNaN(heartRate));
+
+                    if (isNaN(heartRate)) {
+                        heartRate = 0;
+                        count--;
+                    }
+                    return {
+                        key: count,
+                        heartRate: heartRate,
+                        date: item.date.slice(0, 10),
+                    };
+                });
+
                 setDataUser(
-                    mesuresUser.map((item) => {
-                        count++;
-                        return {
-                            key: count,
-                            heartRate: Number(item.heartRate),
-                            date: item.date.slice(0, 10),
-                        };
-                    })
+                    mesureUserAvceNAN.filter((item) => item.heartRate != 0)
                 );
             } catch (e) {
                 console.log("Failed to fetch heart rate data", e);

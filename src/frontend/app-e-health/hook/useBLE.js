@@ -4,6 +4,8 @@ import { BleManager, Device } from "react-native-ble-plx";
 import { Platform, PermissionsAndroid } from "react-native";
 import base64 from "react-native-base64";
 
+import { addNewMesure } from "../backend/DataSante";
+
 function useBLE() {
     const bleManager = useMemo(() => new BleManager(), []);
 
@@ -15,7 +17,7 @@ function useBLE() {
     const HEART_RATE_CHARACTERISTIC = "00002a37-0000-1000-8000-00805f9b34fb";
 
     const service_UUID = "180D";
-    const charac_UUID = "2A38";
+    const charac_UUID = "2A37";
 
     const requestBluetoothPermission = async () => {
         if (Platform.OS === "ios") {
@@ -68,8 +70,7 @@ function useBLE() {
             if (error) {
                 console.log(error);
             }
-            // && device.name?.includes("CorSense")
-            // setAllDevices([]);
+
             if (device) {
                 setAllDevices((prevState) => {
                     if (!isDuplicteDevice(prevState, device)) {
@@ -127,15 +128,16 @@ function useBLE() {
         console.log("============ start read info ===============");
         if (device) {
             const characteristic = await device.readCharacteristicForService(
-                service_UUID, // Replace with your service UUID
+                service_UUID,
                 charac_UUID
             );
             // console.log("value =", characteristic);
             const value = base64.decode(characteristic.value);
-            console.log("value = ", value);
             setHeartRate(value);
+            addNewMesure(value);
+            console.log("value =", characteristic.value);
 
-            if (device.name.includes("corsens")) {
+            if (device.name?.includes("CorSense")) {
                 device.monitorCharacteristicForService(
                     HEART_RATE_UUID,
                     HEART_RATE_CHARACTERISTIC,

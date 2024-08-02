@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { auth } from "../config/firebase";
 import FoncView from "../components/foncView/foncView";
 import { Feather } from "@expo/vector-icons";
 import dataFonc from "./../data/dataFonc";
 import Slider from "../components/Slider/Slider";
 import dataSlider from "../data/dataSlider";
+import base64 from "react-native-base64";
 
 const Home = ({ navigation }) => {
     const handelLogOut = () => {
